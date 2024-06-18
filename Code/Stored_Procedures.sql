@@ -243,6 +243,71 @@ as
 	end catch
 
 
+-----------------------------------------------Topics-------------------------------------------------
+------------------------------------------------------------------------------------------------------
+
+----------Select All-----------
+Create proc SelectAllTopics
+as
+	Select * from Topics
+
+----------Select a topic-----------
+Create proc SelectTopics @Tid int
+as
+	Select * from Topics where topic_id = @Tid
+
+
+----------Insert-----------
+Create proc AddTopic @Tid int, @Tname varchar(50), @CourseID int
+as
+	begin try
+		insert into Topics
+		values(@Tid, @Tname, @CourseID)
+	end try
+	begin catch
+		Select 'Faild to insert into Topics'
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+
+
+----------update-----------
+Create proc UpdateTopic @NewTid int = null, @Tid int, 
+	@Tname varchar(50) = null, @CourseID int = null
+as
+	begin try
+		Update Topics
+		set topic_id = (case when @NewTid is not null then @NewTid else @Tid end),
+			topic_name = (case when @Tname is not null then @Tname else topic_name end),
+			crs_id = (case when @CourseID is not null then @CourseID else crs_id end)
+		where topic_id = @Tid
+	end try
+	begin catch
+		Select 'Faild to update topic ' + @Tid
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+
+
+----------delete-----------
+Create proc DeleteTopic @Tid int
+as
+	begin try
+		Delete from Topics
+		where topic_id = @Tid
+	end try
+	begin catch
+		Select 'Faild to delete topic ' + @Tid
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+
+
+
+
+
+
+
 
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
