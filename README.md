@@ -8,10 +8,10 @@ Construct an automated system that can perform online exams and build an SQL dat
 •	ERD
 •	Database Dictionary
 •	Stored procedures  
-o	Insert update select and delete in any table
-o	Exam generation
-o	Exam Answers 
-o	Exam Correction
+	o	Insert update select and delete in any table
+	o	Exam generation
+	o	Exam Answers 
+	o	Exam Correction
 - Create the following Reports:
 •	Report that returns the student's information according to the Department No parameter.
 •	Report that takes the student ID and returns the student's grades in all courses.
