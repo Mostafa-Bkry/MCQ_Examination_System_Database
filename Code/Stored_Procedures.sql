@@ -45,9 +45,7 @@ as
 		where st_id = @stId
 	end try
 	begin catch
-		Select 'Faild to update Student ' + st_id
-		from Students
-		where st_id = @stId
+		Select 'Faild to update Student ' + @stId
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -59,9 +57,7 @@ as
 		where st_id = @stId
 	end try
 	begin catch
-		Select 'Faild to delete Student ' + st_id
-		from Students
-		where st_id = @stId
+		Select 'Faild to delete Student ' + @stId
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -111,9 +107,7 @@ as
 		where crs_id = @crsId
 	end try
 	begin catch
-		Select 'Faild to update Course ' + crs_id
-		from Courses
-		where crs_id = @crsId
+		Select 'Faild to update Course ' + @crsId
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -125,12 +119,76 @@ as
 		where crs_id = @crsId
 	end try
 	begin catch
-		Select 'Faild to delete course ' + crs_id
-		from Courses
-		where crs_id = @crsId
+		Select 'Faild to delete course ' + @crsId
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
 
 
+-----------------------------------------------Departments-------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+
+
+----------select all ------------
+create proc SelectAllDepartments
+as
+	select * from Departments
+
+	
+----------select a Department ------------ 
+create proc SelectDepartment @deptNo int
+as
+begin
+   select * from Departments where Dept_no = @deptNo
+end
+
+------------insert --------------
+create proc insertDepartments @deptNo int, @deptName varchar(50)
+as
+	begin try
+		insert into Departments
+		values(@deptNo, @deptName)
+	end try
+	begin catch
+		Select 'Faild to insert into Departments'
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+	
+----------update-----------
+Create proc UpdateDepartments @newDeptNo int = null,
+	@deptNo int, @deptName varchar(50) = null
+as
+	begin try
+		update Departments
+		set Dept_no = (case when @newDeptNo is not null then @newDeptNo else Dept_no end),
+			Dept_name = (case when @deptName is not null then @deptName else Dept_name end)
+		where Dept_no = @deptNo
+	end try
+	begin catch
+		Select 'Faild to update Department ' + @deptNo
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+
+----------Delete-----------
+create proc DeleteDepartments @deptNo varchar(10)
+as
+	begin try
+		delete from Departments
+		where Dept_no = @deptNo
+	end try
+	begin catch
+		Select 'Faild to update Department ' + @deptNo
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
