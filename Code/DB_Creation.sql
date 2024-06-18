@@ -39,9 +39,9 @@ go
 ---------------Student_courses----------
 create table Student_courses(
 crs_id int foreign key references Courses(crs_id) 
-	on delete cascade on update set default,
+	on delete cascade,
 st_id int foreign key references Students(st_id) 
-	on delete cascade on update set default,
+	on delete cascade,
 primary key (crs_id, st_id),
 )
 
@@ -51,7 +51,7 @@ create table Topics (
 topic_id int primary key,
 topic_name varchar(50) not null unique,
 crs_id int foreign key references Courses(crs_id) 
-	ON DELETE CASCADE on update set default not null
+	ON DELETE CASCADE not null
 )
 
 go
@@ -73,8 +73,8 @@ q_no int foreign key references Questions(q_no)
 	ON DELETE CASCADE on update cascade not null, 
 constraint C1 primary key(qa_id, q_no)
 )
-
 go
+
 ---------Exams -------------
 create table Exams (
 exam_id int primary key default(404),
@@ -86,12 +86,10 @@ go
 ------------exam_ questions -------------
 create table Exam_questions (
 exam_id int foreign key references Exams(exam_id) 
-	on delete cascade on update set default,
-q_no int foreign key references Questions(q_no) 
 	on delete cascade,
+q_no int foreign key references Questions(q_no),
 PRIMARY KEY (exam_id, q_no)
 )
-
 go 
 
 -------------Student_exams------------
