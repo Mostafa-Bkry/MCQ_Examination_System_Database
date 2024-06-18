@@ -303,6 +303,65 @@ as
 
 
 
+-----------------------------------------------Questions-------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+----------Select All-----------
+Create proc SelectAllQuestions
+as
+	Select * from Questions
+
+----------Select a Question-----------
+Create proc SelectQuestion @QNo int
+as
+	Select * from Questions where q_no = @QNo
+
+
+----------Insert-----------
+Create proc AddQuestion @QNo int, 
+	@QuesContent varchar(255), @TopID int
+as
+	begin try
+		insert into Questions
+		values(@QNo, @QuesContent, @TopID)
+	end try
+	begin catch
+		Select 'Faild to insert into Questions'
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+
+
+----------Update-----------
+Create proc UpdateQuestion @NewQNo int, @QNo int, 
+	@QuesContent varchar(255), @TopID int
+as
+	begin try
+		Update Questions
+		set q_no = (case when @NewQNo is not null then @NewQNo else @QNo end),
+			question = (case when @QuesContent is not null then @QuesContent else question end),
+			topic_id = (case when @TopID is not null then @TopID else topic_id end)
+		where q_no = @QNo
+	end try
+	begin catch
+		Select 'Faild to update Question ' + @QNo
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+
+
+----------Delete-----------
+Create proc DeleteQuestion @QNo int
+as
+	begin try
+		Delete from Questions
+		where q_no = @QNo
+	end try
+	begin catch
+		Select 'Faild to delete Question ' + @QNo
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+
 
 
 
