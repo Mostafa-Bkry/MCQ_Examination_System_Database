@@ -362,8 +362,68 @@ as
 	end catch
 
 
+-----------------------------------------------Questionss_Answers-------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+
+----------Select-----------
+Create proc Select_From_QA (@q_no int = Null)
+as
+Begin
+	if @q_no IS NULL
+	Begin
+		select * from Question_answers
+	End
+	else 
+	Begin
+		select * from Question_answers where q_no = @q_no
+	End
+End
 
 
+
+----------Insert-----------
+Create proc Insert_Into_QA (@qa_answer varchar(255), 
+	@qa_letter char(1) , @qa_isTrue bit , @q_no int)
+as
+	begin try
+		Insert into Question_answers
+		values (@qa_letter, @qa_answer,  @qa_isTrue, @q_no)
+	end try
+	begin catch
+		Select 'Faild to insert into Question_answers'
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+
+----------Update-----------
+Create proc Update_From_QA @NewQNo int = null, @qa_id int, @QNo int, 
+	@qa_answer varchar(255) = null, @qa_isTrue bit = null, @QA_Letter char(1)
+as
+	begin try
+		Update Question_answers
+		set q_no = (case when @NewQNo is not null then @NewQNo else @QNo end),
+			qa_answer = (case when @qa_answer is not null then @qa_answer else qa_answer end),
+			qa_isTrue = (case when @qa_isTrue is not null then @qa_isTrue else qa_isTrue end)
+		where q_no = @QNo and qa_id = @qa_id and qa_letter = @QA_Letter
+	end try
+	begin catch
+		Select 'Faild to update Question_answer id ' +
+			@qa_id + ' Q number ' + @QNo + ' Ans Letter ' + @QA_Letter
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+
+----------Delete-----------
+Create proc DeleteQuestionAnswer @QNo int
+as
+	begin try
+		Delete from Question_answers
+		where q_no = @QNo
+	end try
+	begin catch
+		Select 'Faild to delete Question_answers ' + @QNo
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
 
 
 
