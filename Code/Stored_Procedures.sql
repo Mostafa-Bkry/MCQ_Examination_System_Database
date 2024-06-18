@@ -185,8 +185,62 @@ as
 
 
 
+-----------------------------------------------Instructor -------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
 
 
+----------Select All-----------
+create proc SelectAllInst
+as
+	select * from Instructors
+
+----------select an instructor ------------ 
+create proc Selectinstructor @instId int
+as
+begin
+   select * from Instructors where inst_id = @instId
+end
+
+
+----------Insert-----------
+create proc InsertInst @instId int, @instName varchar(50)
+as
+	begin try
+		insert into Instructors
+		values(@instId, @instName)
+	end try
+	begin catch
+		Select 'Faild to insert into Instructors'
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+
+----------update-----------
+create proc Inst_Update @I_Number_old int,
+	@I_Number_new int = null, @I_name_new varchar(50) = null
+as
+	begin try
+		update Instructors
+		SET inst_id=(case when @I_Number_new is not null then @I_Number_new else @I_Number_old end),
+		inst_name=(case when @I_name_new is not null then @I_name_new else inst_name end)
+		where inst_id = @I_Number_old
+	end try
+	begin catch
+		Select 'Faild to update Instructor ' + @I_Number_old
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
+
+----------Delete-----------
+create proc Inst_Delete @I_Number int
+as
+	begin try
+		delete from dbo.Instructors
+		where inst_id = @I_Number
+	end try
+	begin catch
+		Select 'Faild to update Instructor ' + @I_Number
+		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
+	end catch
 
 
 
