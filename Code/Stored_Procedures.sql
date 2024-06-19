@@ -45,7 +45,7 @@ as
 		where st_id = @stId
 	end try
 	begin catch
-		Select 'Faild to update Student ' + @stId
+		Select 'Faild to update Student ' , @stId
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -57,7 +57,7 @@ as
 		where st_id = @stId
 	end try
 	begin catch
-		Select 'Faild to delete Student ' + @stId
+		Select 'Faild to delete Student ' , @stId
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -107,7 +107,7 @@ as
 		where crs_id = @crsId
 	end try
 	begin catch
-		Select 'Faild to update Course ' + @crsId
+		Select 'Faild to update Course ' , @crsId
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -119,7 +119,7 @@ as
 		where crs_id = @crsId
 	end try
 	begin catch
-		Select 'Faild to delete course ' + @crsId
+		Select 'Faild to delete course ' , @crsId
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -166,7 +166,7 @@ as
 		where Dept_no = @deptNo
 	end try
 	begin catch
-		Select 'Faild to update Department ' + @deptNo
+		Select 'Faild to update Department ' , @deptNo
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -179,7 +179,7 @@ as
 		where Dept_no = @deptNo
 	end try
 	begin catch
-		Select 'Faild to update Department ' + @deptNo
+		Select 'Faild to update Department ' , @deptNo
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -226,7 +226,7 @@ as
 		where inst_id = @I_Number_old
 	end try
 	begin catch
-		Select 'Faild to update Instructor ' + @I_Number_old
+		Select 'Faild to update Instructor ' , @I_Number_old
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -238,7 +238,7 @@ as
 		where inst_id = @I_Number
 	end try
 	begin catch
-		Select 'Faild to update Instructor ' + @I_Number
+		Select 'Faild to update Instructor ' , @I_Number
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -283,7 +283,7 @@ as
 		where topic_id = @Tid
 	end try
 	begin catch
-		Select 'Faild to update topic ' + @Tid
+		Select 'Faild to update topic ' , @Tid
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -297,7 +297,7 @@ as
 		where topic_id = @Tid
 	end try
 	begin catch
-		Select 'Faild to delete topic ' + @Tid
+		Select 'Faild to delete topic ' , @Tid
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -330,7 +330,6 @@ as
 	end catch
 
 
-
 ----------Update-----------
 Create proc UpdateQuestion @NewQNo int, @QNo int, 
 	@QuesContent varchar(255), @TopID int
@@ -343,7 +342,7 @@ as
 		where q_no = @QNo
 	end try
 	begin catch
-		Select 'Faild to update Question ' + @QNo
+		Select 'Faild to update Question ' , @QNo
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -357,7 +356,7 @@ as
 		where q_no = @QNo
 	end try
 	begin catch
-		Select 'Faild to delete Question ' + @QNo
+		Select 'Faild to delete Question ' , @QNo
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
@@ -394,24 +393,22 @@ as
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
 
-
 ----------Update-----------
-Create proc Update_From_QA @NewQNo int = null, @qa_id int, @QNo int, 
-	@qa_answer varchar(255) = null, @qa_isTrue bit = null, @QA_Letter char(1)
+Create proc Update_From_QA @NewQNo int = null, @QNo int, 
+	@qa_answer varchar(255) = null, @qa_isTrue bit = null, @QA_Letter char(1) = null
 as
 	begin try
 		Update Question_answers
 		set q_no = (case when @NewQNo is not null then @NewQNo else @QNo end),
 			qa_answer = (case when @qa_answer is not null then @qa_answer else qa_answer end),
+			qa_letter = (case when @QA_Letter is not null then @QA_Letter else qa_letter end),
 			qa_isTrue = (case when @qa_isTrue is not null then @qa_isTrue else qa_isTrue end)
-		where q_no = @QNo and qa_id = @qa_id and qa_letter = @QA_Letter
+		where q_no = @QNo and qa_letter = @QA_Letter
 	end try
 	begin catch
-		Select 'Faild to update Question_answer id ' +
-			@qa_id + ' Q number ' + @QNo + ' Ans Letter ' + @QA_Letter
+		Select 'Faild to update Question_answer Q number ' , @QNo
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
-
 
 ----------Delete-----------
 Create proc DeleteQuestionAnswer @QNo int
@@ -421,11 +418,9 @@ as
 		where q_no = @QNo
 	end try
 	begin catch
-		Select 'Faild to delete Question_answers ' + @QNo
+		Select 'Faild to delete Question_answers ' , @QNo
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE()
 	end catch
-
-
 
 
 ----------------------------------------------------------------------------------------------------------------
