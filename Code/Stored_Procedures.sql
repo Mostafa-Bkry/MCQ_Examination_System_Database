@@ -62,6 +62,23 @@ as
 	end catch
 
 	
+--Schema for students SPs
+Create schema studentWork
+
+alter schema studentWork
+transfer SelectAllStudent
+go
+alter schema studentWork
+transfer SelectStudent
+go
+alter schema studentWork
+transfer insertStudent
+go
+alter schema studentWork
+transfer updateStudent
+go
+alter schema studentWork
+transfer DeleteStudent
 -----------------------------------------------Courses-------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 
@@ -124,7 +141,23 @@ as
 	end catch
 
 
+--Schema for Courses SPs
+Create schema courseWork
 
+alter schema courseWork
+transfer SelectAllCourses
+go
+alter schema courseWork
+transfer SelectCourse
+go
+alter schema courseWork
+transfer insertCourses
+go
+alter schema courseWork
+transfer updateCourses
+go
+alter schema courseWork
+transfer DeleteCourses
 -----------------------------------------------Departments-------------------------------------------------
 -----------------------------------------------------------------------------------------------------------
 
@@ -185,6 +218,23 @@ as
 
 
 
+--Schema for Departments SPs
+Create schema DepartmentWork
+go
+alter schema DepartmentWork
+transfer SelectAllDepartments
+go
+alter schema DepartmentWork
+transfer SelectDepartment
+go
+alter schema DepartmentWork
+transfer insertDepartments
+go
+alter schema DepartmentWork
+transfer UpdateDepartments
+go
+alter schema DepartmentWork
+transfer DeleteDepartments
 -----------------------------------------------Instructor -------------------------------------------------
 -----------------------------------------------------------------------------------------------------------
 
@@ -243,6 +293,23 @@ as
 	end catch
 
 
+--Schema for Instructors SPs
+Create schema InstructorWork
+go
+alter schema InstructorWork
+transfer SelectAllInst
+go
+alter schema InstructorWork
+transfer Selectinstructor
+go
+alter schema InstructorWork
+transfer InsertInst
+go
+alter schema InstructorWork
+transfer Inst_Update
+go
+alter schema InstructorWork
+transfer Inst_Delete
 -----------------------------------------------Topics-------------------------------------------------
 ------------------------------------------------------------------------------------------------------
 
@@ -302,7 +369,23 @@ as
 	end catch
 
 
-
+--Schema for Topics SPs
+Create schema TopicsWork
+go
+alter schema TopicsWork
+transfer SelectAllTopics
+go
+alter schema TopicsWork
+transfer SelectTopics
+go
+alter schema TopicsWork
+transfer AddTopic
+go
+alter schema TopicsWork
+transfer UpdateTopic
+go
+alter schema TopicsWork
+transfer DeleteTopic
 -----------------------------------------------Questions-------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
 ----------Select All-----------
@@ -361,6 +444,28 @@ as
 	end catch
 
 
+
+
+
+
+
+--Schema for Questions SPs
+Create schema QuestionsWork
+go
+alter schema QuestionsWork
+transfer SelectAllQuestions
+go
+alter schema QuestionsWork
+transfer SelectQuestion
+go
+alter schema QuestionsWork
+transfer AddQuestion
+go
+alter schema QuestionsWork
+transfer UpdateQuestion
+go
+alter schema QuestionsWork
+transfer DeleteQuestion
 -----------------------------------------------Questionss_Answers-------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------
 
@@ -423,5 +528,19 @@ as
 	end catch
 
 
+--Schema for Question_answers SPs
+Create schema Question_answersWork
+go
+alter schema QuestionsWork
+transfer Select_From_QA
+go
+alter schema QuestionsWork
+transfer Insert_Into_QA
+go
+alter schema QuestionsWork
+transfer Update_From_QA
+go
+alter schema QuestionsWork
+transfer DeleteQuestionAnswer
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
