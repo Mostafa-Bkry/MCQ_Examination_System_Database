@@ -15,7 +15,7 @@ as
 
 
 --SP for each Exam Questions and answers with cursor
-Alter proc EachQuesWithAns @exID int
+Create proc EachQuesWithAns @exID int
 as
 	Declare C2 cursor
 	for 
