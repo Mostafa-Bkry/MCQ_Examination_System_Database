@@ -94,7 +94,7 @@ Create function getExQues_StAns (@Exam_no int , @st_id int)
 returns table as
 return
 (
-select  q.question as Questions , sa.st_answer as Answers 
+select  sa.st_id, sa.exam_id, sa.q_no, q.question as Questions , sa.st_answer as Answers 
 	from Student_answers sa inner join Questions q  
 		on q.q_no = sa.q_no
 		and sa.exam_id = @Exam_no and sa.st_id = @st_id
@@ -103,5 +103,5 @@ select  q.question as Questions , sa.st_answer as Answers
 
 Create proc Reports.ExQues_StAnsReport @Exam_no int , @st_id int
 as
-	select * from getExQues_StAns(@Exam_no, @st_id)
-	
+	select Questions , Answers
+	from getExQues_StAns(@Exam_no, @st_id)

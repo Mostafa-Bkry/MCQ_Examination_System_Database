@@ -5,7 +5,8 @@ Use Examination_System
 
 Declare C1 cursor
 	for 
-		exec [Reports].[ExQues_StAnsReport] 2, 1
+		select * 
+		from getExQues_StAns(2, 1)
 	for read only
 
 	Declare @Question varchar(255), @qa_letter varchar(1)
