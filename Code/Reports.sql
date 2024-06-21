@@ -90,9 +90,18 @@ Report that takes exam number and the student ID
 then returns the Questions in this exam with the student answers.
 */
 
-Create proc Reports.ExQues_StAnsReport @Exam_no int , @st_id int
-as
-	select  q.question as Questions , sa.st_answer as Answers 
+Create function getExQues_StAns (@Exam_no int , @st_id int)
+returns table as
+return
+(
+select  q.question as Questions , sa.st_answer as Answers 
 	from Student_answers sa inner join Questions q  
 		on q.q_no = sa.q_no
 		and sa.exam_id = @Exam_no and sa.st_id = @st_id
+)
+
+
+Create proc Reports.ExQues_StAnsReport @Exam_no int , @st_id int
+as
+	select * from getExQues_StAns(@Exam_no, @st_id)
+	
