@@ -1,7 +1,8 @@
 ------------------Exam Corr-----------------------
 Use Examination_System
 
-exec ExamGene 1, 1, 6
+--Select topic_id from Topics where crs_id = 1 and topic_id = 7
+exec ExamGene 1, 1, 7
 
 
 declare @counter int = 0, @rightAns int = 0

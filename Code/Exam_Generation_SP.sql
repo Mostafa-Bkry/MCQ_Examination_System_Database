@@ -39,7 +39,7 @@ as
 		if not exists(select exam_id from Exams where exam_id = @exID) and
 		exists(select crs_id from Courses where crs_id = @CrsID) and
 			exists(Select topic_id from Topics where topic_id = @topicID) and
-			exists(Select topic_id from Topics where crs_id = @CrsID)
+			exists(Select topic_id from Topics where crs_id = @CrsID and topic_id = @topicID)
 		begin
 			insert into Exams
 			values (@exID, @CrsID)
@@ -47,12 +47,11 @@ as
 			---needs cursor to add each q_no in Exam_questions
 			exec AddIntoExamQuestions @exID, @topicID
 		end
+		else if not exists(Select topic_id from Topics where crs_id = @CrsID and topic_id = @topicID)
+			select 'This topic not included in the provided course'
 		else
 			select 'Check the examID or CrsID or TopicID may be dublicated or not found'
 	end try
 	begin catch
 		Select ERROR_NUMBER(), ERROR_MESSAGE(), ERROR_LINE() 
 	end catch
-
-
-exec ExamGene 5, 3, 10
