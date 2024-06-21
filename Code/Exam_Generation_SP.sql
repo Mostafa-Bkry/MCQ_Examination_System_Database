@@ -33,12 +33,13 @@ as
 
 
 --Exam Generation SP
-Create proc ExamGene @exID int, @CrsID varchar(10), @topicID varchar(10)
+Create proc ExamGene @exID int, @CrsID int, @topicID int
 as
 	begin try
 		if not exists(select exam_id from Exams where exam_id = @exID) and
 		exists(select crs_id from Courses where crs_id = @CrsID) and
-			exists(Select topic_id from Topics where topic_id = @topicID)
+			exists(Select topic_id from Topics where topic_id = @topicID) and
+			exists(Select topic_id from Topics where crs_id = @CrsID)
 		begin
 			insert into Exams
 			values (@exID, @CrsID)
